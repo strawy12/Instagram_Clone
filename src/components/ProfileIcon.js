@@ -2,7 +2,7 @@ import "../styles/profileIcon.scss";
 
 function ProfileIcon(prop)
 {
-    const {iconSize, storyBorder, image } = prop;       
+    const {iconSize, storyBorder, image, user } = prop;       
 
     function getRandomInt(min, max)
     {
@@ -10,15 +10,24 @@ function ProfileIcon(prop)
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
+    let profileImage;
 
-    let randomId = getRandomInt(1, 70);
-    let profileImage = image ? image : `https://i.pravatar.cc/150?img=${randomId}`;
+    if(!image && user)
+    {
+        const {id, name, username, imageType} = user;
+        profileImage = `https://raw.githubusercontent.com/strawy12/Instagram_Clone/main/src/images/ProfileImages/${username}.${imageType}`;
+    }
+
+    else if(image)
+    {
+        profileImage = image;
+    }
 
     return (
         <div className={storyBorder? "storyBorder" : ""}>
            <img 
            className={`profileIcon ${iconSize}`} 
-           src={profileImage} 
+           src={profileImage}
            alt="profile"/> 
         </div>
     );

@@ -12,6 +12,7 @@ export default class DB
   RandomUserList():User[]
   {
     let users:User[] = cloneDeep(this.users);
+    users.splice(0, 1);
     for(let i = 0; i < 100; i++)
         {
             let idx1:number = Math.floor(Math.random() * users.length);
@@ -24,12 +25,11 @@ export default class DB
 
     return users;
   }
-
+ 
   async Init(setIsComplete:React.Dispatch<React.SetStateAction<boolean>>)
   {
     await this.GetUserData();
     setIsComplete(true);
-    console.log(this.users);
   }
 
   async GetUserData()
@@ -48,7 +48,7 @@ export default class DB
         id: id,
         name: columns[1],
         username: columns[2],
-        imageLink: `../images/ProfileImages/${columns[2]}.${columns[3].replace('\r', '')}`
+        imageLink: `https://raw.githubusercontent.com/strawy12/Instagram_Clone/main/src/images/ProfileImages/${columns[1]}.${columns[3].replace('\r', '')}`
       };
 
       this.users.push(user);
@@ -56,9 +56,8 @@ export default class DB
   }
 
   GetUser(id:number):User
-  {
+  { 
     let user = this.users.find(x=>x.id == id) as User;
-    console.log(user);
     return user;
   }
 }

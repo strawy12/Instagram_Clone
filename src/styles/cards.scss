@@ -1,4 +1,6 @@
 .cards{
+    margin-left: 350px;
+    padding: 0 50px;
     width: 600px;
 }
 
@@ -7,3 +9,9 @@
         width: 100%;
     }
 }
+
+@media only screen and (max-width: 1900px){
+    .cards{
+        margin-left: 260px;
+    }
+} 

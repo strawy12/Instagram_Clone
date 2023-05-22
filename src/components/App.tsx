@@ -8,7 +8,7 @@ import DB from "../data/DB";
 
 function App():JSX.Element {
 
-  console.log(1);
+  console.log(DB.Inst);
   const [isComplete, setIsComplete] = useState(false);
 
   if(DB.Inst == null)
@@ -23,15 +23,17 @@ function App():JSX.Element {
   return (
     <div className="App">
     {isComplete ? 
-          <div>
-          <Navigation/>
-            <main>
-              <div className='container'>
-                <Cards />
-                <Sidebar />
-              </div>
-            </main> 
+        <div>
+        <div className="navigation">
+          <Navigation />
+        </div>
+        <main>
+          <div className="container">
+            <Cards />
+            <Sidebar />
           </div>
+        </main>
+      </div>
       :
       "loading"
     }

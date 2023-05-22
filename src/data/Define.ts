@@ -1,3 +1,4 @@
+import React from "react";
 
 export interface CommentData
 {
@@ -41,4 +42,10 @@ export interface ProfileProps
   captionSize:string,
   storyBorder:boolean,
   hideAccountName:boolean
+}
+
+export interface MenuProps
+{
+   style:JSX.Element,
+   text:string
 }

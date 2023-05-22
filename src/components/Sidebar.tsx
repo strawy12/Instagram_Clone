@@ -4,7 +4,6 @@ import Sticky from "react-sticky-el";
 import Profile from "./Profile";
 import Suggestions from "./Suggestions";
 import Footer from "./Footer";
-import image from "../images/Chaewon.jpg";
 import { User } from '../data/Define';
 import DB from "../data/DB";
 
@@ -17,7 +16,7 @@ function Sidebar():JSX.Element
             <div className="sidebar">
                 <Profile 
                 userID={me.id}
-                caption="Kim Chaewon" 
+                caption="" 
                 urlText="Switch" 
                 iconSize="big" 
                 captionSize="small"

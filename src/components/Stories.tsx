@@ -2,24 +2,23 @@ import React from 'react';
 import "../styles/stories.scss";
 import HorizontalScroll from "react-scroll-horizontal";
 import Story from "./Story";
-import DB from "../data/DB";
 
 
 
 function Stories():JSX.Element
 {
 
-    function GetStories()
+    function GetStories():JSX.Element[]
     {
-        let stories = [];
-        let users = DB.Inst.RandomUserList();   
+        let stories:JSX.Element[] = [];
+        // let users = DB.Inst.RandomUserList();   
         
-        for(let i = 0; i < 10; i++)
-        {
-            stories.push(
-                <Story user={users[i]}/>
-            )
-        }
+        // for(let i = 0; i < 10; i++)
+        // {
+        //     stories.push(
+        //         <Story user={users[i]}/>
+        //     )
+        // }
 
         return stories;
     }

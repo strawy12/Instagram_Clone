@@ -1,49 +1,52 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import "../styles/cards.scss";
 import Stories from "./Stories"; 
 import Card from "./Card";
-import {commentsOne, commentsTwo, commentsThree} from "../data/comments";
-import Post1_Image from "../images/PostImages/post_1.png";
-import {CardProps} from "../data/Define";
+import{ CardData }from "../data/Define";
+import Axios, {AxiosResponse} from 'axios';
 
-//import Post2_Image from "../images/PostImages/post_2.png";
-//import Post3_Image from "../images/PostImages/post_3.png";
+
 
 function Cards():JSX.Element
 {
+    function GetCards(cnt:number):JSX.Element[] 
+    {
+        let [cards, setCards] = useState<CardData[]>();
+        useEffect(() => 
+        {
+            Axios.get('http://localhost:3001/getRandomCards/',{params:cnt}).then((res:AxiosResponse) => 
+            {
+                setCards(res.data);
+            });
+        });
+
+        let result:JSX.Element[] = [];
+        
+        if(cards != null && cards.length != 0)
+        {
+            for(let i = 0; i < cnt; i++)
+            {
+                result.push(
+                    <Card 
+                    id={cards[i].id}
+                    userID={cards[i].userID}
+                    likedUserID={cards[i].likedUserID}
+                    imageName={cards[i].imageName}
+                    text={cards[i].text}
+                    commentID={cards[i].commentID}
+                    time={cards[i].time}
+                    />
+                )
+            }
+        }
+
+        return result;
+    }
+
     return (
         <div className="cards">
             <Stories />
-
-            <Card 
-            userID= {1} 
-            storyBorder={true} 
-            comments={commentsOne} 
-            image={Post1_Image} 
-            likedByText="dasada" 
-            likedByNumber={89} 
-            hours={3} 
-            />
-
-            <Card 
-            userID={2} 
-            storyBorder={true} 
-            comments={commentsTwo} 
-            image={Post1_Image} 
-            likedByText="dasada" 
-            likedByNumber={89} 
-            hours={3} 
-            />
-
-            <Card 
-            userID={3} 
-            storyBorder={true} 
-            comments={commentsThree} 
-            image={Post1_Image} 
-            likedByText="dasada" 
-            likedByNumber={89} 
-            hours={3} 
-            />
+            {GetCards(1)}
         </div>
     );
 }

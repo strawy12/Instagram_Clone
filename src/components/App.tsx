@@ -1,42 +1,40 @@
-import React, { useState, useEffect } from 'react';
-
+import React,{useState, useEffect} from 'react';
 import '../styles/App.scss';
 import Navigation from "./Navgation";
 import Cards from "./Cards"
 import Sidebar from "./Sidebar"
-import DB from "../data/DB";
+import Axios, { AxiosResponse} from 'axios';
+import {User} from'../data/Define';
+
+
 
 function App():JSX.Element {
 
-  console.log(DB.Inst);
-  const [isComplete, setIsComplete] = useState(false);
-
-  if(DB.Inst == null)
-  {
-    DB.Inst = new DB();
-  }
-  useEffect(() =>
-    {
-      DB.Inst.Init(setIsComplete);
+  let [cookie, setCookie] = useState<boolean>(false);
+  useEffect(() => {
+      Axios.get('http://localhost:3001/cookie/set').then((res:AxiosResponse) => {
+        console.log(1);
     });
+    }); 
+      
+  useEffect(() => {
+      Axios.get('http://localhost:3001/cookie/get').then((res:AxiosResponse) => {
+      setCookie(true);
+      console.log(2);
+      });
+    });
+
+if(cookie == false) return <div>Loading</div>;
 
   return (
     <div className="App">
-    {isComplete ? 
-        <div>
-        <div className="navigation">
-          <Navigation />
-        </div>
+        <Navigation />
         <main>
           <div className="container">
             <Cards />
             <Sidebar />
           </div>
         </main>
-      </div>
-      :
-      "loading"
-    }
     </div>
   );
 }

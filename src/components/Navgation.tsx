@@ -12,10 +12,13 @@ import { ReactComponent as Make} from "../images/make.svg";
 import { ReactComponent as Search} from "../images/search.svg";
 import { ReactComponent as Setting} from "../images/Setting.svg";
 import ProfileIcon from "./ProfileIcon";
+import { User } from '../data/Define';
+import DB from "../data/DB";
 
 
 function Navigation():JSX.Element
 {
+    let me:User =  DB.Inst.GetUser(0);
     return(
     <div className="navigation">
         <div className="container">
@@ -27,7 +30,7 @@ function Navigation():JSX.Element
         <Menu style={<Inbox className="icon"/>} text='메시지'/>
         <Menu style={<Notifications className="icon"/>} text='알림'/>
         <Menu style={<Make className="icon"/>} text='만들기'/>
-        <Menu style={<ProfileIcon iconSize="small" image={""} storyBorder={false} />} text='프로필'/>
+        <Menu style={<ProfileIcon iconSize="small" image={me.imageLink} storyBorder={false} />} text='프로필'/>
         <Menu style={<Setting className="icon"/>} text='더 보기'/>
         </div>
     </div>

@@ -7,8 +7,8 @@ function Comment(prop:CommentData):JSX.Element
 
     return (
     <div className="commentContainer">
-        <div className='accountName'>userName</div>
-        <div className='comment'>text</div>
+        <div className='accountName'>{prop.user}</div>
+        <div className='comment'>{prop.text}</div>
     </div>
     );
 }

@@ -1,8 +1,9 @@
-import React, {useState, useEffect } from 'react';
+import React from 'react';
 import "../styles/profile.scss";
 import ProfileIcon from "./ProfileIcon";
-import { ProfileProps,User  } from "../data/Define";
-import Axios,{AxiosResponse} from 'axios'; 
+import { ProfileProps, User } from "../data/Define";
+import DB from "../data/DB";
+
 
 
 function Profile(props:ProfileProps):JSX.Element
@@ -14,29 +15,21 @@ function Profile(props:ProfileProps):JSX.Element
         caption = caption.substring(0, 28) + "...";
     }
 
-    let [user, setUser] = useState<User>();
-    useEffect(() => 
-    {
-        Axios.get('http://localhost:3001/getUser/', {params:props.userID}).then((res:AxiosResponse) =>
-        {
-            setUser(res.data);
-        });
-    });
-    
-    let accountName:string = user? user.name: "";
-    caption = caption != 'userName' ? caption : user ? user.userID: ""; 
+    let user:User = DB.Inst.GetUser(userID);
+    let accountName:string = user.username;
+    caption = caption ? caption : user.name; 
 
     return (<div className="profile">
         <ProfileIcon 
             iconSize = {iconSize} 
             storyBorder = {storyBorder}  
-            image = {user ? user.imageLink : ""}
+            image = {user.imageLink}
         />
         {(accountName || caption) && !hideAccountName &&
         (
             <div className="textContainer">
                 <span className="accountName">{accountName}</span>
-                <span className={caption ? `caption ${captionSize}`: ''}>{caption}</span>
+                <span className={`caption ${captionSize}`}>{caption}</span>
             </div>
         )}
         <a href="/">{urlText}</a>
